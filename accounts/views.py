@@ -1,3 +1,8 @@
+__author__ = 'jason.parent@carneylabs.com (Jason Parent)'
+
+# Django imports...
 from django.shortcuts import render
 
-# Create your views here.
+
+def home_view(request):
+    return render(request, 'accounts/home.html')
