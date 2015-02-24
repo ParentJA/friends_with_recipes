@@ -10,6 +10,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'accounts.views.home_view', name='home'),
-    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
+    url(r'^sign_up/$', 'accounts.views.sign_up_view', name='sign_up'),
+    url(r'^log_in/$', 'accounts.views.log_in_view', name='log_in'),
+    url(r'^log_out/$', 'accounts.views.log_out_view', name='log_out'),
+    # url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^admin/', include(admin.site.urls)),
 )

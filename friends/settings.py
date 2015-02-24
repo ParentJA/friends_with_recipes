@@ -90,6 +90,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'friends', 'templates'),
+)
+
 from django.contrib.messages import constants as message_constants
 
 # Changing message tags to conform with Bootstrap 'alert' component class names...
