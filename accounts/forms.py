@@ -77,3 +77,22 @@ class SignUpForm(BootstrapMixin, forms.ModelForm):
 
 class LogInForm(BootstrapMixin, AuthenticationForm):
     pass
+
+
+class ProfileForm(BootstrapMixin, forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('photo', 'date_of_birth', 'address', 'phone_number')
+        widgets = {
+            'date_of_birth': forms.fields.TextInput(attrs={
+                'placeholder': 'i.e. 6/2/1979',
+                'type': 'date'
+            }),
+            'address': forms.fields.TextInput(attrs={
+                'placeholder': 'i.e. 6586 Bollinger Rd'
+            }),
+            'phone_number': forms.fields.TextInput(attrs={
+                'placeholder': 'i.e. (913) 149-4498',
+                'type': 'tel'
+            })
+        }

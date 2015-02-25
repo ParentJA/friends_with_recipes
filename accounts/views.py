@@ -10,6 +10,7 @@ from django.shortcuts import render
 
 # Local imports...
 from .forms import LogInForm
+from .forms import ProfileForm
 from .forms import SignUpForm
 
 
@@ -20,7 +21,7 @@ def home_view(request):
 def sign_up_view(request):
     form = SignUpForm(request)
 
-    if request.POST:
+    if request.method == 'POST':
         form = SignUpForm(data=request.POST)
 
         if form.is_valid():
@@ -36,7 +37,7 @@ def sign_up_view(request):
 def log_in_view(request):
     form = LogInForm()
 
-    if request.POST:
+    if request.method == 'POST':
         form = LogInForm(data=request.POST)
 
         if form.is_valid():
@@ -54,3 +55,25 @@ def log_out_view(request):
     logout(request)
 
     return redirect(reverse('home'))
+
+
+@login_required
+def profile_view(request):
+    return render(request, 'accounts/profile.html')
+
+
+@login_required
+def profile_edit_view(request):
+    form = ProfileForm(instance=request.user)
+
+    if request.method == 'POST':
+        form = ProfileForm(instance=request.user, data=request.POST, files=request.FILES)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect(reverse('profile'))
+
+    return render(request, 'accounts/profile_edit.html', {
+        'form': form
+    })

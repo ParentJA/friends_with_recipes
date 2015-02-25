@@ -8,6 +8,7 @@ from django.test import TestCase
 
 # Local imports...
 from ..forms import LogInForm
+from ..forms import ProfileForm
 from ..forms import SignUpForm
 
 User = get_user_model()
@@ -118,3 +119,10 @@ class SignUpFormTest(TestCase):
         user = form.save()
 
         self.assertEqual(user.email, self.email)
+
+
+class ProfileFormTest(TestCase):
+    def test_form_has_required_fields(self):
+        form = ProfileForm()
+
+        self.assertIn('id="id_photo"', form.as_p())
