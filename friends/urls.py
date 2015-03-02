@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^profile/$', 'accounts.views.profile_view', name='profile'),
     url(r'^profile/edit/$', 'accounts.views.profile_edit_view', name='profile_edit'),
     # url(r'^accounts/', include('accounts.urls', namespace='accounts')),
+    url(r'^users/', include('users.urls', namespace='users')),
     url(r'^admin/', include(admin.site.urls)),
 )
 
