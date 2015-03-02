@@ -1,1 +1,42 @@
 {% extends 'base.html' %}
+
+{% block page-navigation %}
+    {% include 'snippets/navigation.html' with active='users' %}
+{% endblock page-navigation %}
+
+{% block page-content %}
+    <ul class="nav nav-pills nav-justified">
+        <li class="active">
+            <a id="search_tab" href="#search_pane" data-toggle="pill">Search</a>
+        </li>
+        <li>
+            <a id="requests_tab" href="#requests_pane" data-toggle="pill">Requests</a>
+        </li>
+        <li>
+            <a id="browse_tab" href="#browse_pane" data-toggle="pill">Browse</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="search_pane" class="tab-pane active">
+            Search
+        </div>
+        <div id="requests_pane" class="tab-pane">
+            Requests
+        </div>
+        <div id="browse_pane" class="tab-pane">
+            Browse
+        </div>
+    </div>
+{% endblock page-content %}
+
+{% block page-scripts %}
+    <script>
+        $(function() {
+            $("a[data-toggle='pill']").click(function(event) {
+                event.preventDefault();
+
+                $(this).tab("show");
+            });
+        });
+    </script>
+{% endblock page-scripts %}

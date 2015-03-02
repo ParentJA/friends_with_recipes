@@ -1,0 +1,12 @@
+<ul class="nav navbar-nav">
+    <li {% if active == 'feed' %}class="active"{% endif %}>
+        <a id="feed-button" href="/">
+            {% comment %}<i class="fa fa-newspaper-o"></i> {% endcomment %}Feed
+        </a>
+    </li>
+    <li {% if active == 'users' %}class="active"{% endif %}>
+        <a id="users-button" href="{% url 'users:home' %}">
+            {% comment %}<i class="fa fa-users"></i> {% endcomment %}Users
+        </a>
+    </li>
+</ul>

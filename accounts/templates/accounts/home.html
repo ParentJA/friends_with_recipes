@@ -16,6 +16,10 @@
     </style>
 {% endblock page-styles %}
 
+{% block page-navigation %}
+    {% include 'snippets/navigation.html' with active='feed' %}
+{% endblock page-navigation %}
+
 {% block page-content %}
     {% if user.is_authenticated %}
 
