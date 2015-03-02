@@ -1,0 +1,19 @@
+{% for user in users %}
+    <ul class="media-list">
+        <li class="media">
+            <div class="media-left media-middle">
+                {% if user.photo_url %}
+                    <img class="media-object img-circle" src="{{ user.photo_url }}" width="55" height="55">
+                {% else %}
+                    <div class="media-object"></div>
+                {% endif %}
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ user.get_full_name }}</h4>
+                {{ user.username }}
+            </div>
+        </li>
+    </ul>
+{% empty %}
+    <p class="text-center text-muted temporary">No results found</p>
+{% endfor %}

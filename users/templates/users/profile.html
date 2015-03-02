@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block page-styles %}
+    <style>
+        #wrapper {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 204px;
+            margin: auto auto;
+            position: absolute;
+            text-align: center;
+        }
+
+        #details-display > *:not(:first-child) {
+            display: none;
+        }
+
+        #details-display p {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        #details-display h4 {
+            margin-top: 0;
+        }
+
+        #details-list > li {
+            margin: 0 5px;
+            font-size: 16px;
+        }
+    </style>
+{% endblock page-styles %}
+
+{% block page-content %}
+    <div id="wrapper" class="text-center">
+        <a id="edit-button" href="{% url 'profile_edit' %}">
+            {% if user.photo_url %}
+                <img class="media-object img-circle center-block" src="{{ user.photo_url }}" width="120" height="120">
+            {% else %}
+                <div class="media-object center-block"></div>
+            {% endif %}
+        </a>
+        <div id="details-display">
+            <div id="user-display">
+                <p>Hi, my name is</p>
+                <h4>{{ user.get_full_name }}</h4>
+            </div>
+            <div id="envelope-display">
+                <p>My email address is</p>
+                <h4>{{ user.email }}</h4>
+            </div>
+            <div id="calendar-display">
+                <p>My birthday is</p>
+                <h4>{{ user.date_of_birth|default:"None" }}</h4>
+            </div>
+            <div id="marker-display">
+                <p>My address is</p>
+                <h4>{{ user.address|default:"None" }}</h4>
+            </div>
+            <div id="phone-display">
+                <p>My phone number is</p>
+                <h4>{{ user.phone_number|default:"None" }}</h4>
+            </div>
+        </div>
+        <ul id="details-list" class="list-inline">
+            <li id="user">
+                <span class="glyphicon glyphicon-user"></span>
+            </li>
+            <li id="envelope">
+                <span class="glyphicon glyphicon-envelope"></span>
+            </li>
+            <li id="calendar">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </li>
+            <li id="marker">
+                <span class="glyphicon glyphicon-map-marker"></span>
+            </li>
+            <li id="phone">
+                <span class="glyphicon glyphicon-phone"></span>
+            </li>
+        </ul>
+    </div>
+{% endblock page-content %}
+
+{% block page-scripts %}
+    <script>
+        $(function() {
+            $("#details-list > li").on("mouseenter click", function() {
+                var index = $(this).index();
+
+                $("#details-display").children().not(":eq(" + index + ")").hide();
+                $("#details-display").children().eq(index).show();
+            });
+        });
+    </script>
+{% endblock page-scripts %}

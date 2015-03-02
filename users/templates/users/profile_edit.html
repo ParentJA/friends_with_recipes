@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block page-content %}
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Edit profile!</h4>
+                </div>
+                <div class="panel-body">
+                    {% include 'bootstrap_messages.html' %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <button class="close" type="button" data-dismiss="alert">&times;</button>
+                            {{ error|safe }}
+                        </div>
+                    {% endfor %}
+                    <form action="{% url 'profile_edit' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {% if field.errors %}
+                                <div class="form-group has-error has-feedback">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    <span class="help-block">
+                                        {{ field.errors|join:', ' }}
+                                    </span>
+                                </div>
+                            {% else %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <button id="submit_button" class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock page-content %}
