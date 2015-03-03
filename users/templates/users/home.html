@@ -44,13 +44,13 @@
                     <div id="search_results"></div>
                 </div>
                 <div id="requests_pane" class="tab-pane">
-                    <p class="text-center text-muted temporary">No requests</p>
+                    <div id="requests_results"></div>
                 </div>
                 <div id="browse_pane" class="tab-pane">
                     <div id="browse_results"></div>
                 </div>
                 <div id="friends_pane" class="tab-pane">
-                    <p class="text-center text-muted temporary">No friends</p>
+                    <div id="friends_results"></div>
                 </div>
             </div>
         </div>
@@ -74,10 +74,22 @@
                 $("#search_results").load(url);
             });
 
+            $("#requests_tab").click(function() {
+                var url = "{% url 'users:requests' %}";
+
+                $("#requests_results").load(url);
+            });
+
             $("#browse_tab").click(function() {
                 var url = "{% url 'users:list' %}";
 
                 $("#browse_results").load(url);
+            });
+
+            $("#friends_tab").click(function() {
+                var url = "{% url 'users:friends' %}";
+
+                $("#friends_results").load(url);
             });
         });
     </script>
