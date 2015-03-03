@@ -11,7 +11,7 @@ from django.db import models
 class User(AbstractUser):
     photo = models.ImageField(upload_to='photos', default='photos/no-image.jpg', blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
-    address = models.CharField(max_length=250, blank=True, null=True)
+    address = models.CharField(max_length=250, default='')
     phone_number = PhoneNumberField(blank=True, null=True)
 
     def __unicode__(self):

@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render
 
+# Local imports...
+from .models import Friendship
+
 User = get_user_model()
 
 
@@ -24,6 +27,11 @@ def list_view(request):
         Q(first_name__icontains=search) |
         Q(last_name__icontains=search)
     )
+
+    # Exclude users that share a friendship with the request user...
+    friends = Friendship.user_list_friends(Friendship.objects.get_friendships(request.user))
+
+    query &= ~Q(username__in=[f.username for f in friends])
 
     users = User.objects.exclude(username=request.user.username).filter(query)
 
