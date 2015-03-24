@@ -27,7 +27,7 @@ def sign_up_view(request):
         if form.is_valid():
             login(request, form.save())
 
-            return redirect(reverse('home'))
+            return redirect(reverse('users:feed'))
 
     return render(request, 'accounts/sign_up.html', {
         'form': form
@@ -43,7 +43,7 @@ def log_in_view(request):
         if form.is_valid():
             login(request, form.get_user())
 
-            return redirect(reverse('home'))
+            return redirect(reverse('users:feed'))
 
     return render(request, 'accounts/log_in.html', {
         'form': form

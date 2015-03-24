@@ -116,7 +116,11 @@ class Friendship(models.Model):
         return map((lambda f: f.sender if f.receiver == user else f.receiver), friendships)
 
     def __unicode__(self):
-        return 'Friendship: %s to %s (%s)' % (self.sender, self.receiver, self.get_status_display())
+        return '%s to %s (%s)' % (
+            self.sender.first_name,
+            self.receiver.first_name,
+            self.get_status_display()
+        )
 
     def accept(self):
         """Accepts a pending friendship."""

@@ -17,17 +17,17 @@
 {% endblock page-styles %}
 
 {% block page-navigation %}
-    {% include 'snippets/navigation.html' with active='feed' %}
+    {% include 'snippets/navigation.html' with active='none' %}
 {% endblock page-navigation %}
 
 {% block page-content %}
-    {% if user.is_authenticated %}
-
-    {% else %}
-        <div id="wrapper">
-            <h1>Welcome to Friends</h1>
+    <div id="wrapper">
+        <h1>Welcome to Friends</h1>
+        {% if user.is_authenticated %}
+            <a id="feed_button" class="btn btn-large btn-primary" href="{% url 'users:feed' %}">Continue to Feed</a>
+        {% else %}
             <a id="log_in_button" class="btn btn-large btn-primary" href="{% url 'log_in' %}">Log in</a>
             <a id="sign_up_button" class="btn btn-large btn-primary" href="{% url 'sign_up' %}">Sign up</a>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
 {% endblock page-content %}

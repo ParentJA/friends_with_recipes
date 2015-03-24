@@ -12,4 +12,5 @@ urlpatterns = patterns('users.views',
     url(r'^friends/(?P<user_id>\d+)/add/$', 'add_view', name='add'),
     url(r'^friends/(?P<user_id>\d+)/accept/$', 'accept_view', name='accept'),
     url(r'^friends/(?P<user_id>\d+)/reject/$', 'reject_view', name='reject'),
+    url(r'^feed/$', 'feed_view', name='feed'),
 )

@@ -116,3 +116,20 @@ class AuthenticationTest(FunctionalTest):
         sign_up = self.browser.find_element_by_id('sign_up_button')
 
         self.assertEqual(sign_up.text, 'Sign up')
+
+    def test_user_can_visit_home_as_logged_in_user(self):
+        # John is a logged-in user.
+        self.create_pre_authenticated_session(
+            first_name='John',
+            last_name='Carney',
+            email='john.carney@carneylabs.com',
+            password='password1'
+        )
+
+        # John goes to the home page.
+        self.browser.get(self.live_server_url)
+
+        # He sees a button that says "Continue to Feed".
+        feed_button = self.browser.find_element_by_id('feed_button')
+
+        self.assertEqual(feed_button.text, 'Continue to Feed')

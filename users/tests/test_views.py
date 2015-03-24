@@ -12,6 +12,7 @@ from django.test import Client
 from django.test import TestCase
 
 # Local imports...
+from ..models import Friendship
 from ..views import home_view
 
 User = get_user_model()
@@ -36,6 +37,8 @@ class HomeViewTest(TestCase):
 class FriendshipTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
+            first_name='John',
+            last_name='Carney',
             username='john.carney@carneylabs.com',
             email='john.carney@carneylabs.com',
             password='password1'
@@ -231,3 +234,54 @@ class RejectViewTest(FriendshipTest):
         mock_friendship_instance.assert_called_once_with(self.user, regina)
 
         self.assertTrue(mock_friendship_instance.return_value.reject.called)
+
+
+class FeedViewTest(FriendshipTest):
+    def setUp(self):
+        super(FeedViewTest, self).setUp()
+
+        self.regina = User.objects.create_user(
+            first_name='Regina',
+            last_name='McDonald',
+            username='regina.mcdonalid93@example.com',
+            email='regina.mcdonalid93@example.com',
+            password='password1'
+        )
+
+        self.friendship = Friendship.user_add_friend(self.user, friend=self.regina)
+        self.friendship.accept()
+
+    def test_feed_view_renders_feed_template(self):
+        response = self.client.get('/users/feed/')
+
+        self.assertTemplateUsed(response, 'users/feed.html')
+
+    def test_feed_view_returns_user_events(self):
+        response = self.client.get('/users/feed/')
+
+        self.assertListEqual(response.context['events'], [{
+            'heading': '%s added %s as a friend' % (
+                self.friendship.sender.first_name,
+                self.friendship.receiver.first_name
+            ),
+            'date': self.friendship.created,
+            'first_subject': self.friendship.sender,
+            'indirect_object': self.friendship.receiver
+        }, {
+            'heading': '%s %s %s\'s friendship' % (
+                self.friendship.receiver.first_name,
+                self.friendship.get_status_display(),
+                self.friendship.sender.first_name
+            ),
+            'date': self.friendship.updated,
+            'first_subject': self.friendship.receiver,
+            'indirect_object': self.friendship.sender
+        }])
+
+    def test_feed_view_returns_user_events_in_correct_order(self):
+        response = self.client.get('/users/feed/')
+
+        self.assertListEqual(
+            [e.get('date') for e in response.context['events']],
+            [self.friendship.created, self.friendship.updated]
+        )

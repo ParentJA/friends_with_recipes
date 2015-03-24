@@ -1,11 +1,13 @@
 __author__ = 'jason.parent@carneylabs.com (Jason Parent)'
 
+# Standard library...
+import operator
+
 # Django imports...
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -92,3 +94,37 @@ def reject_view(request, user_id):
     friendship.reject()
 
     return redirect(reverse('users:home'))
+
+
+@login_required
+def feed_view(request):
+    events = []
+
+    friendships = Friendship.objects.get_friendships(user=request.user)
+
+    for friendship in friendships:
+        events.append({
+            'heading': '%s added %s as a friend' % (
+                friendship.sender.first_name,
+                friendship.receiver.first_name
+            ),
+            'date': friendship.created,
+            'first_subject': friendship.sender,
+            'indirect_object': friendship.receiver
+        })
+
+        if friendship.updated != friendship.created and friendship.status != 'P':
+            events.append({
+                'heading': '%s %s %s\'s friendship' % (
+                    friendship.receiver.first_name,
+                    friendship.get_status_display(),
+                    friendship.sender.first_name
+                ),
+                'date': friendship.updated,
+                'first_subject': friendship.receiver,
+                'indirect_object': friendship.sender
+            })
+
+    return render(request, 'users/feed.html', {
+        'events': sorted(events, key=operator.itemgetter('date'))
+    })

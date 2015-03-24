@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block page-navigation %}
+    {% include 'snippets/navigation.html' with active='feed' %}
+{% endblock page-navigation %}
+
+{% block page-content %}
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            {% if events %}
+                <ul class="media-list">
+                    {% for event in events %}
+                        <li class="media">
+                            <div class="media-left">
+                                {% if event.first_subject.photo_url %}
+                                    <img class="media-object img-circle"
+                                         src="{{ event.first_subject.photo_url }}"
+                                         width="55"
+                                         height="55">
+                                {% else %}
+                                    <div class="media-object"></div>
+                                {% endif %}
+                            </div>
+                            <div class="media-left">
+                                {% if event.indirect_object.photo_url %}
+                                    <img class="media-object img-circle"
+                                         src="{{ event.indirect_object.photo_url }}"
+                                         width="55"
+                                         height="55">
+                                {% else %}
+                                    <div class="media-object"></div>
+                                {% endif %}
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{ event.heading }}</h4>
+                                {{ event.date|date:'SHORT_DATE_FORMAT' }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                Nothing notable has happened. Try making some friends.
+            {% endif %}
+        </div>
+    </div>
+{% endblock page-content %}
