@@ -1,0 +1,17 @@
+- model: accounts.user
+  pk: 1
+  fields:
+    password: pbkdf2_sha256$15000$NWYZLyhiGi98$xHm3zjjTa3lIMmUkSHnubPLcPIspT4MgxgjAzZiK6tM=
+    last_login: 2015-06-19 15:10:16.266995+00:00
+    is_superuser: true
+    username: parentj
+    first_name: Jason
+    last_name: Parent
+    email: parentj@advisory.com
+    is_staff: true
+    is_active: true
+    date_joined: 2015-06-19 14:54:42.813556+00:00
+    photo: photos/no-image.jpg
+    date_of_birth: 1984-08-10
+    address: 310 P Street NW
+    phone_number: (860) 977-7458
