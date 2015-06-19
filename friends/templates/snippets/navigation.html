@@ -5,4 +5,7 @@
     <li {% if active == 'users' %}class="active"{% endif %}>
         <a id="users-button" href="{% url 'users:home' %}">Users</a>
     </li>
+    <li {% if active == 'recipes' %}class="active"{% endif %}>
+        <a id="recipes-button" href="{% url 'recipes:home' %}">Recipes</a>
+    </li>
 </ul>
