@@ -7,9 +7,8 @@ from mock import patch
 # Django imports...
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
+from django.test import Client, TestCase
 from django.test.client import RequestFactory
-from django.test import Client
-from django.test import TestCase
 
 # Local imports...
 from ..models import Friendship

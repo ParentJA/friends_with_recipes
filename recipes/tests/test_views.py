@@ -2,8 +2,8 @@ __author__ = 'parentj@eab.com (Jason Parent)'
 
 # Django imports...
 from django.contrib.auth import get_user_model
-from django.test.client import RequestFactory
 from django.test import TestCase
+from django.test.client import RequestFactory
 
 # Local imports...
 from ..views import home_view
