@@ -22,7 +22,7 @@
 
 {% block page-content %}
     <div id="wrapper">
-        <h1>Welcome to Friends</h1>
+        <h1>Welcome to Friends with Recipes</h1>
         {% if user.is_authenticated %}
             <a id="feed_button" class="btn btn-large btn-primary" href="{% url 'users:feed' %}">Continue to Feed</a>
         {% else %}

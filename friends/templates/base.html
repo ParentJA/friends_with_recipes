@@ -4,7 +4,7 @@
 
 <head lang="en">
     <meta charset="utf-8">
-    <title>{% block page-title %}Home{% endblock page-title %}</title>
+    <title>{% block page-title %}Friends with Recipes{% endblock page-title %}</title>
     <meta name="viewport"
           content="user-scalable=no, width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     {% comment %}<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">{% endcomment %}
@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 {% if user.is_authenticated %}
@@ -31,7 +31,7 @@
                         <span class="icon-bar"></span>
                     </button>
                 {% endif %}
-                <a class="navbar-brand" href="/">Friends</a>
+                <a class="navbar-brand" href="/">Friends with Recipes</a>
             </div>
             <div id="navbar-content" class="collapse navbar-collapse">
                 {% if user.is_authenticated %}
